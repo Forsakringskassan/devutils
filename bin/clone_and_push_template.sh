@@ -43,10 +43,10 @@ git clone $newrepo $TMPFOLDER \
 && cd $TMPFOLDER \
 && git remote add tmpl $tmplrepo \
 && git fetch tmpl \
-&& git checkout tmpl/master . \
+&& (git checkout tmpl/main 2>/dev/null || git checkout tmpl/master .) \
 && echo "" > CHANGELOG.md \
 && git add . \
-&& tmpl_ref=`git rev-parse tmpl/master` \
+&& tmpl_ref=$(git rev-parse tmpl/main 2>/dev/null || git rev-parse tmpl/master 2>/dev/null) \
 && git commit -a -m "chore: Initialize with $tmplrepo $tmpl_ref" \
-&& git push -u origin master \
+&& git push -u origin main \
 && cd ..
