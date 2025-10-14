@@ -7,7 +7,7 @@ A collection of scripts for developers.
 The idea is that you clone this repo And point to it with your `~/.bashrc`.
 
 ```sh
-git clone git@github.com:Forsakringskassan/template-kubernetes.git ~/devutils \
+git clone git@github.com:Forsakringskassan/devutils.git ~/devutils \
  && echo "source ~/devutils/bashrc.sh" >> ~/.bashrc \
  && source ~/.bashrc
 ```
