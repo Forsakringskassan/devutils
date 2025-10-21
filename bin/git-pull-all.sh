@@ -12,3 +12,9 @@ for dir in */; do
         cd "$BASE_DIR" || exit
     fi
 done
+
+if [ -d ".github/.git" ]; then
+    cd ".github" || exit 1
+    git pull || exit 1
+    cd "$BASE_DIR" || exit
+fi
