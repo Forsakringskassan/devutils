@@ -5,7 +5,7 @@ echo the latest revision from the template as a new commit in the empty repo.
 echo
 echo Example:
 echo
-echo  clone_and_push_template.sh \<jar\|api\|quarkus\|openshift\|bamoe\> https://github.com/Forsakringskassan/the_new_repo.git
+echo  clone_and_push_template.sh \<jar\|api\|asyncapi\|quarkus\|openshift\|bamoe\> https://github.com/Forsakringskassan/the_new_repo.git
 echo
 
 if [ -z "$1" ]
@@ -29,6 +29,10 @@ fi
 if [ "$tmplrepo" == "bamoe" ]; then
     tmplrepo=git@github.com:Forsakringskassan/template-bamoe.git
 fi
+if [ "$tmplrepo" == "asyncapi" ]; then
+    tmplrepo=https://github.com/Forsakringskassan/template-asyncapi.git
+fi
+
 
 echo "Using $tmplrepo"
 
