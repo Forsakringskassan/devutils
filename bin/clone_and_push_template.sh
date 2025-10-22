@@ -46,7 +46,8 @@ git clone $newrepo $TMPFOLDER \
 && cd $TMPFOLDER \
 && git remote add tmpl $tmplrepo \
 && git fetch tmpl \
-&& (git checkout -b main tmpl/main 2>/dev/null || git checkout -b main tmpl/master .) \
+&& (git checkout tmpl/main . 2>/dev/null || git checkout tmpl/master .) \
+&& git checkout -b main \
 && echo "" > CHANGELOG.md \
 && git add . \
 && tmpl_ref=$(git rev-parse tmpl/main 2>/dev/null || git rev-parse tmpl/master 2>/dev/null) \
