@@ -13,4 +13,6 @@ echo \|  https://github.com/Forsakringskassan/devutils
 echo \|________________________________________________________
 echo
 
+git -C ~/devutils pull -q > /dev/null 2>&1
+
 export PATH=~/devutils/bin:$PATH
