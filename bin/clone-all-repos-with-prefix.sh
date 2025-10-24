@@ -6,12 +6,13 @@ ORG="Forsakringskassan"
 QUERY="${1:-}"
 
 if [[ -z "$QUERY" ]]; then
-    echo "Usage: $0 <query>"
-    echo "Example: $0 rimfrost"
-    exit 1
+    echo "No query provided, cloning all repositories in org: $ORG"
+    OUTPUT_DIR="./${ORG}"
+    SEARCH_QUERY="org:${ORG}"
+else
+    OUTPUT_DIR="./${ORG}/${QUERY}"
+    SEARCH_QUERY="${QUERY}+org:${ORG}"
 fi
-
-OUTPUT_DIR="./${QUERY}-repos"
 
 # Create output directory
 mkdir -p "$OUTPUT_DIR"
@@ -34,7 +35,7 @@ while :; do
     response=$(curl -sSL \
         -H "Accept: application/vnd.github+json" \
         ${AUTH_HEADER:+-H "$AUTH_HEADER"} \
-        "https://api.github.com/search/repositories?q=${QUERY}+org:${ORG}&per_page=100&page=${page}")
+        "https://api.github.com/search/repositories?q=${SEARCH_QUERY}&per_page=100&page=${page}")
 
     # Check for API errors
     if echo "$response" | jq -e '.message' >/dev/null 2>&1; then
@@ -43,7 +44,7 @@ while :; do
     fi
 
     # Extract clone URLs
-    page_repos=($(echo "$response" | jq -r '.items[]?.clone_url'))
+    page_repos=($(echo "$response" | jq -r '.items[]?.ssh_url'))
     repos+=("${page_repos[@]}")
 
     # Stop if fewer than 100 results on this page
